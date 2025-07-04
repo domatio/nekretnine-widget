@@ -3,6 +3,9 @@
     const styleContent = `
 .prodaja-nekretnina-post {
     margin-bottom: 40px;
+    max-width: 600px;  /* možeš podesiti širinu kontejnera */
+    margin-left: auto;
+    margin-right: auto;
 }
 .prodaja-nekretnina-post-title {
     margin-top: 10px;
@@ -11,14 +14,13 @@
 }
 .prodaja-nekretnina-post-image-container {
     position: relative;
-    height: 200px;
+    width: 100%;
     overflow: hidden;
 }
 .prodaja-nekretnina-post-image {
-    width: 100%;
-    height: auto;
-    max-height: 200px;
-    object-fit: cover;
+    width: 100%;       /* zauzima celu širinu kontejnera */
+    height: auto;      /* visina se prilagođava proporciji */
+    display: block;
 }
 .prodaja-nekretnina-post-excerpt {
     margin-top: 8px;
