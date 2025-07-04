@@ -3,13 +3,16 @@
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
     overflow: hidden !important;
+    /* nema fiksne visine, da slika može da se skalira proporcionalno */
 }
 .prodaja-nekretnina-post-image {
     max-width: 100% !important;
     width: 100% !important;
-    height: auto !important;
+    height: auto !important; /* proporcionalno smanjenje */
     display: block !important;
     object-fit: contain !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
 }
 .prodaja-nekretnina-post {
     margin-bottom: 40px !important;
