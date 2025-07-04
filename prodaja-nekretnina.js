@@ -1,31 +1,8 @@
 (function(){
     const styleContent = `
-#prodaja-nekretnina-posts-container {
-    max-width: 600px !important;
-    margin: 0 auto !important;
-    padding: 0 10px !important;
-    box-sizing: border-box !important;
-    overflow-wrap: break-word !important;
-    overflow-x: hidden !important;
-}
-.prodaja-nekretnina-post {
-    margin-bottom: 40px !important;
-    border: 1px solid #ddd !important;
-    padding: 15px !important;
-    background: #fff !important;
-    box-sizing: border-box !important;
-}
-.prodaja-nekretnina-post-title {
-    margin-top: 10px !important;
-    text-align: center !important;
-    font-size: 18px !important;
-    word-wrap: break-word !important;
-}
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
-    max-width: 100% !important;
     overflow: hidden !important;
-    box-sizing: border-box !important;
 }
 .prodaja-nekretnina-post-image {
     max-width: 100% !important;
@@ -33,10 +10,16 @@
     height: auto !important;
     display: block !important;
     object-fit: contain !important;
-    border-radius: 4px !important;
+}
+.prodaja-nekretnina-post {
+    margin-bottom: 40px !important;
     box-sizing: border-box !important;
-    pointer-events: none !important;
-    user-select: none !important;
+}
+.prodaja-nekretnina-post-title {
+    margin-top: 10px !important;
+    text-align: center !important;
+    font-size: 18px !important;
+    word-wrap: break-word !important;
 }
 .prodaja-nekretnina-post-excerpt {
     margin-top: 8px !important;
