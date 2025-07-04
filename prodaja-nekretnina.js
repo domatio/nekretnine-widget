@@ -1,5 +1,5 @@
 (function(){
-    // Dinamički ubacujemo CSS stilove
+    // Ubacujemo CSS direktno u head
     const styleContent = `
 .prodaja-nekretnina-post {
     margin-bottom: 40px;
@@ -15,13 +15,10 @@
     overflow: hidden;
 }
 .prodaja-nekretnina-post-image {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
     width: 100%;
     height: auto;
+    max-height: 200px;
+    object-fit: cover;
 }
 .prodaja-nekretnina-post-excerpt {
     margin-top: 8px;
@@ -35,7 +32,7 @@
     style.textContent = styleContent;
     document.head.appendChild(style);
 
-    // Ubacujemo container ako ne postoji
+    // Ubacujemo container div ako ne postoji
     if (!document.getElementById('prodaja-nekretnina-posts-container')) {
         const container = document.createElement('div');
         container.id = 'prodaja-nekretnina-posts-container';
@@ -44,7 +41,7 @@
         document.body.appendChild(container);
     }
 
-    // Učitavamo jQuery ako nije učitan
+    // Funkcija za učitavanje jQuery ako nije učitan
     function loadjQuery(callback){
         if(window.jQuery){
             callback();
