@@ -1,17 +1,22 @@
 (function(){
     const styleContent = `
+#prodaja-nekretnina-wrapper {
+    max-width: 600px !important;
+    margin: 0 auto !important;
+    padding: 0 10px !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+}
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
-    overflow: visible !important; /* dozvoljava prikaz cele slike */
+    overflow: visible !important; /* nema skrivanja */
     height: auto !important;
 }
 .prodaja-nekretnina-post-image {
-    max-width: 100% !important;
     width: 100% !important;
-    height: auto !important; /* proporcionalno */
+    max-width: 100% !important;
+    height: auto !important;
     display: block !important;
-    /* uklonjen object-fit da slika ne bude isečena */
-    border-radius: 4px !important;
     box-sizing: border-box !important;
 }
 .prodaja-nekretnina-post {
@@ -37,6 +42,7 @@ body, html {
     overflow-x: hidden !important;
 }
     `;
+
     const style = document.createElement('style');
     style.textContent = styleContent;
     document.head.appendChild(style);
