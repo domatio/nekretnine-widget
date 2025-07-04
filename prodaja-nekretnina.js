@@ -2,15 +2,15 @@
     const styleContent = `
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
-    overflow: hidden !important;
-    /* nema fiksne visine, da slika može da se skalira proporcionalno */
+    overflow: visible !important; /* dozvoljava prikaz cele slike */
+    height: auto !important;
 }
 .prodaja-nekretnina-post-image {
     max-width: 100% !important;
     width: 100% !important;
-    height: auto !important; /* proporcionalno smanjenje */
+    height: auto !important; /* proporcionalno */
     display: block !important;
-    object-fit: contain !important;
+    /* uklonjen object-fit da slika ne bude isečena */
     border-radius: 4px !important;
     box-sizing: border-box !important;
 }
