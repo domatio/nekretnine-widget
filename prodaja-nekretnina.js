@@ -1,47 +1,33 @@
 (function(){
     const styleContent = `
 #prodaja-nekretnina-wrapper {
-    max-width: 600px !important;
-    margin: 0 auto !important;
-    padding: 0 10px !important;
-    overflow-x: hidden !important;
-    box-sizing: border-box !important;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 10px;
 }
 .prodaja-nekretnina-post {
-    margin-bottom: 40px !important;
-    box-sizing: border-box !important;
+    margin-bottom: 40px;
 }
 .prodaja-nekretnina-post-title {
-    margin-top: 10px !important;
-    text-align: center !important;
-    font-size: 18px !important;
-    word-wrap: break-word !important;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 18px;
 }
 .prodaja-nekretnina-post-excerpt {
-    margin-top: 8px !important;
-    font-size: 14px !important;
-    color: #555 !important;
-    text-align: justify !important;
-    padding: 0 5px !important;
-    box-sizing: border-box !important;
-    word-wrap: break-word !important;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #555;
+    text-align: justify;
+    padding: 0 5px;
 }
 .prodaja-nekretnina-post-image-container {
-    width: 100% !important;
-    overflow: hidden !important;
+    width: 100%;
 }
 .prodaja-nekretnina-post-image {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    display: block !important;
-    border-radius: 4px !important;
-    object-fit: contain !important;
-}
-a.prodaja-nekretnina-link {
-    text-decoration: none !important;
-    color: inherit !important;
-    display: block !important;
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
 }
     `;
     const style = document.createElement('style');
@@ -75,7 +61,7 @@ a.prodaja-nekretnina-link {
 
                             output += `
 <div class="prodaja-nekretnina-post">
-  <a class="prodaja-nekretnina-link" href="${link}" target="_blank" rel="noopener">
+  <a href="${link}" target="_blank" rel="noopener" style="text-decoration: none; color: inherit;">
     <div class="prodaja-nekretnina-post-image-container">
       <img class="prodaja-nekretnina-post-image" src="${image}" alt="${title}" />
     </div>
