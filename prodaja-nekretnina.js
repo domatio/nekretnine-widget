@@ -7,18 +7,6 @@
     overflow-x: hidden !important;
     box-sizing: border-box !important;
 }
-.prodaja-nekretnina-post-image-container {
-    width: 100% !important;
-    overflow: visible !important; /* nema skrivanja */
-    height: auto !important;
-}
-.prodaja-nekretnina-post-image {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    display: block !important;
-    box-sizing: border-box !important;
-}
 .prodaja-nekretnina-post {
     margin-bottom: 40px !important;
     box-sizing: border-box !important;
@@ -38,11 +26,24 @@
     box-sizing: border-box !important;
     word-wrap: break-word !important;
 }
-body, html {
-    overflow-x: hidden !important;
+.prodaja-nekretnina-post-image-container {
+    width: 100% !important;
+    overflow: hidden !important;
+}
+.prodaja-nekretnina-post-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    border-radius: 4px !important;
+    object-fit: contain !important;
+}
+a.prodaja-nekretnina-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block !important;
 }
     `;
-
     const style = document.createElement('style');
     style.textContent = styleContent;
     document.head.appendChild(style);
@@ -66,22 +67,22 @@ body, html {
                         posts.forEach(function(post) {
                             const title = $('<textarea>').html(post.title.rendered).text();
                             const link = post.link;
-                            const image = post._embedded && post._embedded["wp:featuredmedia"] 
-                                ? post._embedded["wp:featuredmedia"][0].source_url 
+                            const image = post._embedded && post._embedded["wp:featuredmedia"]
+                                ? post._embedded["wp:featuredmedia"][0].source_url
                                 : "https://via.placeholder.com/600x300?text=Bez+slike";
                             const excerptRaw = post.excerpt.rendered.replace(/<[^>]*>?/gm, '');
                             const excerpt = excerptRaw.length > 200 ? excerptRaw.substr(0, 200) + '...' : excerptRaw;
 
-                            output += 
-                                `<div class="prodaja-nekretnina-post">
-                                    <a href="${link}" target="_blank" style="text-decoration: none; color: inherit;">
-                                        <div class="prodaja-nekretnina-post-image-container">
-                                            <img class="prodaja-nekretnina-post-image" src="${image}" alt="${title}" />
-                                        </div>
-                                        <h3 class="prodaja-nekretnina-post-title">${title}</h3>
-                                        <p class="prodaja-nekretnina-post-excerpt">${excerpt}</p>
-                                    </a>
-                                </div>`;
+                            output += `
+<div class="prodaja-nekretnina-post">
+  <a class="prodaja-nekretnina-link" href="${link}" target="_blank" rel="noopener">
+    <div class="prodaja-nekretnina-post-image-container">
+      <img class="prodaja-nekretnina-post-image" src="${image}" alt="${title}" />
+    </div>
+    <h3 class="prodaja-nekretnina-post-title">${title}</h3>
+    <p class="prodaja-nekretnina-post-excerpt">${excerpt}</p>
+  </a>
+</div>`;
                         });
                         $('#prodaja-nekretnina-posts-container').html(output);
                     },
@@ -103,5 +104,6 @@ body, html {
             setTimeout(() => waitForjQuery(callback), 50);
         }
     }
+
     waitForjQuery(fetchPosts);
 })();
