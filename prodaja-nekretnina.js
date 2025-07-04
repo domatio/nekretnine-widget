@@ -1,11 +1,18 @@
 (function(){
-    // Ubacujemo CSS direktno u head
+    // Ubacujemo CSS direktno u head (sa marginama i max širinom)
     const styleContent = `
+#prodaja-nekretnina-posts-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
 .prodaja-nekretnina-post {
     margin-bottom: 40px;
-    max-width: 600px;  /* možeš podesiti širinu kontejnera */
-    margin-left: auto;
-    margin-right: auto;
+    border: 1px solid #ddd;
+    padding: 15px;
+    background: #fff;
+    box-sizing: border-box;
 }
 .prodaja-nekretnina-post-title {
     margin-top: 10px;
@@ -13,21 +20,21 @@
     font-size: 18px;
 }
 .prodaja-nekretnina-post-image-container {
-    position: relative;
     width: 100%;
     overflow: hidden;
 }
 .prodaja-nekretnina-post-image {
-    width: 100%;       /* zauzima celu širinu kontejnera */
-    height: auto;      /* visina se prilagođava proporciji */
+    width: 100%;
+    height: auto;
     display: block;
 }
 .prodaja-nekretnina-post-excerpt {
     margin-top: 8px;
     font-size: 14px;
     color: #555;
-    padding: 0 10px;
     text-align: justify;
+    padding: 0 5px;
+    box-sizing: border-box;
 }
     `;
     const style = document.createElement('style');
