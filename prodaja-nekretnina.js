@@ -1,5 +1,5 @@
 (function(){
-    // Ubaci CSS dinamički
+    // Dinamički ubacujemo CSS stilove
     const styleContent = `
 .prodaja-nekretnina-post {
     margin-bottom: 40px;
@@ -35,7 +35,7 @@
     style.textContent = styleContent;
     document.head.appendChild(style);
 
-    // Ubaci container div ako ne postoji
+    // Ubacujemo container ako ne postoji
     if (!document.getElementById('prodaja-nekretnina-posts-container')) {
         const container = document.createElement('div');
         container.id = 'prodaja-nekretnina-posts-container';
@@ -44,7 +44,7 @@
         document.body.appendChild(container);
     }
 
-    // Funkcija za učitavanje jQuery ako ne postoji
+    // Učitavamo jQuery ako nije učitan
     function loadjQuery(callback){
         if(window.jQuery){
             callback();
@@ -57,7 +57,7 @@
     }
 
     loadjQuery(function(){
-        function fetchProdajaNekretninaPosts() {
+        function fetchPosts() {
             $.ajax({
                 url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina',
                 dataType: 'json',
@@ -105,7 +105,6 @@
                 }
             });
         }
-
-        fetchProdajaNekretninaPosts();
+        fetchPosts();
     });
 })();
