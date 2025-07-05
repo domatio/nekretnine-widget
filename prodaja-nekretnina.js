@@ -97,6 +97,7 @@
                             return;
                         }
 
+                        // UZIMAMO ISKLJUČIVO PRVI POST — ČAK I AKO IH DOĐE VIŠE
                         const p = posts[0];
                         const title = $('<textarea>').html(p.title.rendered).text();
                         const link = p.link;
