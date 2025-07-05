@@ -23,19 +23,23 @@
     overflow: hidden !important;
 }
 
+#prodaja-nekretnina-frame *,
 #prodaja-nekretnina-posts-container,
 .prodaja-nekretnina-post {
     box-sizing: border-box !important;
+}
+
+.prodaja-nekretnina-post {
     margin-bottom: 30px !important;
     width: 100% !important;
 }
 
 .prodaja-nekretnina-post-image-container {
-    max-width: 100% !important;
-    max-height: 500px !important;
+    width: 100% !important;
+    max-width: 600px !important;
     overflow: hidden !important;
-    box-sizing: border-box !important;
     margin: 0 auto 10px auto !important;
+    box-sizing: border-box !important;
     display: block !important;
 }
 
