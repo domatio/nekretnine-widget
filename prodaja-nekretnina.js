@@ -97,7 +97,7 @@ a.prodaja-nekretnina-link {
                             return;
                         }
 
-                        const p = posts[0];
+                        const p = posts[0]; // SAMO PRVI POST
                         const title = $('<textarea>').html(p.title.rendered).text();
                         const link = p.link;
                         const img = p._embedded && p._embedded["wp:featuredmedia"]
