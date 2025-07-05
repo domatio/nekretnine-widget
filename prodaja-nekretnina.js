@@ -80,7 +80,7 @@
 (function(){
     function fetchPosts() {
         $.ajax({
-            url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina',
+            url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina&_=' + Date.now(),
             dataType: 'json',
             success: function(categories) {
                 if (categories.length === 0) {
@@ -89,7 +89,7 @@
                 }
                 const id = categories[0].id;
                 $.ajax({
-                    url: `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${id}&per_page=1&order=desc&orderby=date&_embed`,
+                    url: `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${id}&per_page=1&order=desc&orderby=date&_embed&_=${Date.now()}`,
                     dataType: 'json',
                     success: function(posts) {
                         if (!posts.length) {
