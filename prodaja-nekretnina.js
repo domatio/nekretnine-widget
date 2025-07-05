@@ -1,47 +1,35 @@
 (function(){
-    // 1. Kreiraj wrapper ako ne postoji
     if (!document.getElementById('prodaja-nekretnina-embed-wrapper')) {
         const wrapper = document.createElement('div');
         wrapper.id = 'prodaja-nekretnina-embed-wrapper';
         document.body.appendChild(wrapper);
     }
-
-    // 2. Upisivanje sadržaja HTML kontejnera
     document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
 <div id="prodaja-nekretnina-frame">
   <div id="prodaja-nekretnina-posts-container"></div>
 </div>
 `;
-
-    // 3. Stilovi
     const styleContent = `
-/* Glavni crni okvir */
 #prodaja-nekretnina-frame {
     border: 3px solid black !important;
     padding: 20px !important;
     box-sizing: border-box !important;
-    max-width: 600px !important; /* Maksimalna širina okvira */
-    width: 100% !important;       /* Širina prilagođena veličini ekrana */
+    max-width: 600px !important;
+    width: 100% !important;
     margin: 0 auto !important;
     background-color: #fff !important;
     overflow: hidden !important;
 }
-
-/* Reset teme (bez slika) */
 #prodaja-nekretnina-frame *,
 #prodaja-nekretnina-posts-container,
 .prodaja-nekretnina-post {
     all: unset !important;
     box-sizing: border-box !important;
 }
-
-/* Post */
 .prodaja-nekretnina-post {
     margin-bottom: 30px !important;
     width: 100% !important;
 }
-
-/* Slika - ograničena da nikada ne prelazi okvir ni širinu stranice */
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
     overflow: hidden !important;
@@ -51,18 +39,16 @@
     margin: 0 !important;
     max-width: 100% !important;
 }
-
 .prodaja-nekretnina-post-image {
     display: block !important;
     max-width: 100% !important;
-    width: 100% !important;
+    max-height: 500px !important;
+    width: auto !important;
     height: auto !important;
     box-sizing: border-box !important;
     margin: 0 auto !important;
     object-fit: contain !important;
 }
-
-/* Naslov i tekst */
 .prodaja-nekretnina-post-title {
     font-size: 18px !important;
     font-weight: bold !important;
@@ -75,8 +61,6 @@
     color: #333 !important;
     word-wrap: break-word !important;
 }
-
-/* Link */
 a.prodaja-nekretnina-link {
     text-decoration: none !important;
     color: inherit !important;
@@ -85,12 +69,10 @@ a.prodaja-nekretnina-link {
     width: 100% !important;
 }
 `;
-
     const style = document.createElement('style');
     style.textContent = styleContent;
     document.head.appendChild(style);
 
-    // 4. Ajax: Učitavanje postova
     function fetchPosts() {
         $.ajax({
             url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina',
@@ -138,8 +120,6 @@ a.prodaja-nekretnina-link {
             }
         });
     }
-
-    // 5. Čekaj jQuery ako nije učitan
     function waitForjQ(cb) {
         if(window.jQuery) cb();
         else setTimeout(()=>waitForjQ(cb),50);
