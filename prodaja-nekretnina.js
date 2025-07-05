@@ -1,31 +1,28 @@
 (function(){
-    function injectCSS() {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://cdn.jsdelivr.net/gh/domatio/nekretnine-widget@latest/prodaja-nekretnina.css?v=' + Date.now();
-        document.head.appendChild(link);
+    if (!document.getElementById('prodaja-nekretnina-embed-wrapper')) {
+        const wrapper = document.createElement('div');
+        wrapper.id = 'prodaja-nekretnina-embed-wrapper';
+        document.body.appendChild(wrapper);
     }
 
-    function createWrapper() {
-        if (!document.getElementById('prodaja-nekretnina-embed-wrapper')) {
-            const wrapper = document.createElement('div');
-            wrapper.id = 'prodaja-nekretnina-embed-wrapper';
-            document.body.appendChild(wrapper);
-        }
-
-        document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
+    document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
 <div id="prodaja-nekretnina-frame">
   <div id="prodaja-nekretnina-posts-container">Učitavanje oglasa...</div>
-</div>`;
-    }
+</div>
+`;
 
     function fetchPosts() {
+        if(!window.jQuery) {
+            setTimeout(fetchPosts, 50);
+            return;
+        }
+
         $.ajax({
             url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina&_=' + Date.now(),
             dataType: 'json',
             success: function(categories) {
                 if (categories.length === 0) {
-                    document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Kategorija nije pronađena.</p>';
+                    $('#prodaja-nekretnina-posts-container').html('<p>Kategorija nije pronađena.</p>');
                     return;
                 }
                 const id = categories[0].id;
@@ -34,7 +31,7 @@
                     dataType: 'json',
                     success: function(posts) {
                         if (!posts.length) {
-                            document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Trenutno nema oglasa.</p>';
+                            $('#prodaja-nekretnina-posts-container').html('<p>Trenutno nema oglasa.</p>');
                             return;
                         }
 
@@ -60,25 +57,18 @@
 </div>`;
                         });
 
-                        document.getElementById('prodaja-nekretnina-posts-container').innerHTML = html;
+                        $('#prodaja-nekretnina-posts-container').html(html);
                     },
                     error: function() {
-                        document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Greška pri učitavanju postova.</p>';
+                        $('#prodaja-nekretnina-posts-container').html('<p>Greška pri učitavanju postova.</p>');
                     }
                 });
             },
             error: function() {
-                document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Greška pri učitavanju kategorije.</p>';
+                $('#prodaja-nekretnina-posts-container').html('<p>Greška pri učitavanju kategorije.</p>');
             }
         });
     }
 
-    function waitForjQ(cb) {
-        if (window.jQuery) cb();
-        else setTimeout(() => waitForjQ(cb), 50);
-    }
-
-    injectCSS();
-    createWrapper();
-    waitForjQ(fetchPosts);
+    fetchPosts();
 })();
