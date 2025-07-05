@@ -21,9 +21,8 @@
 
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     margin: 0 auto 10px auto !important;
-    display: block !important;
     text-align: center !important;
 }
 
