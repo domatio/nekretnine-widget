@@ -28,11 +28,13 @@
 }
 
 .prodaja-nekretnina-post-image {
-    display: inline-block !important;
-    max-width: 100% !important;
-    height: auto !important;
+    display: block !important;
+    height: 200px !important;
+    width: auto !important;
+    margin: 0 auto !important;
     object-fit: contain !important;
 }
+
 .prodaja-nekretnina-post-title {
     font-size: 18px !important;
     font-weight: bold !important;
