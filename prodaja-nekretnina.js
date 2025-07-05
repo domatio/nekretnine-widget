@@ -4,11 +4,13 @@
         wrapper.id = 'prodaja-nekretnina-embed-wrapper';
         document.body.appendChild(wrapper);
     }
+
     document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
 <div id="prodaja-nekretnina-frame">
   <div id="prodaja-nekretnina-posts-container"></div>
 </div>
 `;
+
     const styleContent = `
 #prodaja-nekretnina-frame {
     border: 3px solid black !important;
@@ -20,35 +22,43 @@
     background-color: #fff !important;
     overflow: hidden !important;
 }
+
+/* Reset */
 #prodaja-nekretnina-frame *,
 #prodaja-nekretnina-posts-container,
 .prodaja-nekretnina-post {
     all: unset !important;
     box-sizing: border-box !important;
 }
+
 .prodaja-nekretnina-post {
     margin-bottom: 30px !important;
     width: 100% !important;
 }
+
+/* Slika u okviru kontejnera sa max dimenzijama 500x500 i proporcionalno */
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
     overflow: hidden !important;
     display: block !important;
     box-sizing: border-box !important;
     padding: 0 !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
     max-width: 100% !important;
 }
+
 .prodaja-nekretnina-post-image {
     display: block !important;
     max-width: 100% !important;
     max-height: 500px !important;
     width: auto !important;
     height: auto !important;
-    box-sizing: border-box !important;
     margin: 0 auto !important;
+    box-sizing: border-box !important;
     object-fit: contain !important;
 }
+
+/* Naslov i tekst */
 .prodaja-nekretnina-post-title {
     font-size: 18px !important;
     font-weight: bold !important;
@@ -69,6 +79,7 @@ a.prodaja-nekretnina-link {
     width: 100% !important;
 }
 `;
+
     const style = document.createElement('style');
     style.textContent = styleContent;
     document.head.appendChild(style);
@@ -91,7 +102,7 @@ a.prodaja-nekretnina-link {
                         posts.forEach(function(p) {
                             const title = $('<textarea>').html(p.title.rendered).text();
                             const link = p.link;
-                            const img = p._embedded && p._embedded["wp:featuredmedia"] 
+                            const img = p._embedded && p._embedded["wp:featuredmedia"]
                                 ? p._embedded["wp:featuredmedia"][0].source_url
                                 : "https://via.placeholder.com/600x300?text=Bez+slike";
                             const raw = p.excerpt.rendered.replace(/<[^>]*>?/gm, '');
@@ -120,6 +131,7 @@ a.prodaja-nekretnina-link {
             }
         });
     }
+
     function waitForjQ(cb) {
         if(window.jQuery) cb();
         else setTimeout(()=>waitForjQ(cb),50);
