@@ -15,13 +15,13 @@
 #prodaja-nekretnina-frame {
     border: 3px solid black;
     padding: 20px;
-    max-width: 100%;
-    width: 100%;
     max-width: 600px;
+    width: 100%;
     margin: 0 auto;
     background-color: #fff;
     box-sizing: border-box;
     overflow: hidden;
+    position: relative;
 }
 
 #prodaja-nekretnina-posts-container {
@@ -41,16 +41,19 @@
     margin: 0 auto 10px auto;
     display: block;
     box-sizing: border-box;
+    max-width: 100%;
 }
 
 .prodaja-nekretnina-post-image {
     display: block;
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: contain;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 500px !important;
+    object-fit: contain !important;
     border: none;
-    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .prodaja-nekretnina-post-title {
