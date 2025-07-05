@@ -16,22 +16,23 @@
     border: 3px solid black;
     padding: 20px;
     max-width: 100%;
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
     margin: 0 auto;
     background-color: #fff;
     box-sizing: border-box;
     overflow: hidden;
-    position: relative;
 }
 
-#prodaja-nekretnina-posts-container,
-.prodaja-nekretnina-post {
-    box-sizing: border-box;
+#prodaja-nekretnina-posts-container {
     width: 100%;
+    box-sizing: border-box;
 }
 
 .prodaja-nekretnina-post {
     margin-bottom: 30px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .prodaja-nekretnina-post-image-container {
@@ -49,6 +50,7 @@
     max-height: 500px;
     object-fit: contain;
     border: none;
+    max-width: 100%;
 }
 
 .prodaja-nekretnina-post-title {
