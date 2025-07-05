@@ -37,19 +37,20 @@
 
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
+    max-width: 100% !important;
+    max-height: 500px !important;
     overflow: hidden !important;
     display: block !important;
     box-sizing: border-box !important;
     padding: 0 !important;
     margin: 0 auto !important;
-    max-width: 100% !important;
 }
 
 .prodaja-nekretnina-post-image {
     display: block !important;
     max-width: 100% !important;
     max-height: 500px !important;
-    width: 100% !important;
+    width: auto !important;
     height: auto !important;
     margin: 0 auto !important;
     box-sizing: border-box !important;
