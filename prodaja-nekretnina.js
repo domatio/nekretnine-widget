@@ -44,11 +44,11 @@
 }
 
 .prodaja-nekretnina-post-image {
-    display: block !important;
     max-width: 100% !important;
     max-height: 500px !important;
     width: auto !important;
     height: auto !important;
+    display: block !important;
     margin: 0 auto !important;
     object-fit: contain !important;
 }
