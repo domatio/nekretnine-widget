@@ -1,111 +1,112 @@
-<script>
-(function(){
-    if (!document.getElementById('prodaja-nekretnina-embed-wrapper')) {
-        const wrapper = document.createElement('div');
-        wrapper.id = 'prodaja-nekretnina-embed-wrapper';
-        document.body.appendChild(wrapper);
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <title>Poslednji oglas - Prodaja Nekretnina</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    #prodaja-nekretnina-frame {
+        border: 3px solid black !important;
+        padding: 20px !important;
+        max-width: 600px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        background-color: #fff !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
     }
 
-    document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
-<div id="prodaja-nekretnina-frame">
-  <div id="prodaja-nekretnina-posts-container"></div>
+    #prodaja-nekretnina-frame *,
+    #prodaja-nekretnina-posts-container,
+    .prodaja-nekretnina-post {
+        box-sizing: border-box !important;
+    }
+
+    .prodaja-nekretnina-post {
+        margin-bottom: 30px !important;
+        width: 100% !important;
+    }
+
+    .prodaja-nekretnina-post-image-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        margin: 0 auto 10px auto !important;
+        display: block !important;
+    }
+
+    .prodaja-nekretnina-post-image {
+        display: block !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: 500px !important;
+        margin: 0 auto !important;
+        object-fit: contain !important;
+    }
+
+    .prodaja-nekretnina-post-title {
+        font-size: 18px !important;
+        font-weight: bold !important;
+        margin: 10px 0 5px !important;
+        color: #111 !important;
+        word-wrap: break-word !important;
+    }
+
+    .prodaja-nekretnina-post-excerpt {
+        font-size: 14px !important;
+        color: #333 !important;
+        word-wrap: break-word !important;
+    }
+
+    a.prodaja-nekretnina-link {
+        text-decoration: none !important;
+        color: inherit !important;
+        display: block !important;
+        width: 100% !important;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div id="prodaja-nekretnina-embed-wrapper">
+  <div id="prodaja-nekretnina-frame">
+    <div id="prodaja-nekretnina-posts-container">Učitavanje oglasa...</div>
+  </div>
 </div>
-`;
 
-    const styleContent = `
-#prodaja-nekretnina-frame {
-    border: 3px solid black !important;
-    padding: 20px !important;
-    max-width: 600px !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    background-color: #fff !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-}
-
-#prodaja-nekretnina-frame *,
-#prodaja-nekretnina-posts-container,
-.prodaja-nekretnina-post {
-    box-sizing: border-box !important;
-}
-
-.prodaja-nekretnina-post {
-    margin-bottom: 30px !important;
-    width: 100% !important;
-}
-
-.prodaja-nekretnina-post-image-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-    margin: 0 auto 10px auto !important;
-    display: block !important;
-}
-
-.prodaja-nekretnina-post-image {
-    display: block !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    height: auto !important;
-    max-height: 500px !important;
-    margin: 0 auto !important;
-    object-fit: contain !important;
-}
-
-.prodaja-nekretnina-post-title {
-    font-size: 18px !important;
-    font-weight: bold !important;
-    margin: 10px 0 5px !important;
-    color: #111 !important;
-    word-wrap: break-word !important;
-}
-
-.prodaja-nekretnina-post-excerpt {
-    font-size: 14px !important;
-    color: #333 !important;
-    word-wrap: break-word !important;
-}
-
-a.prodaja-nekretnina-link {
-    text-decoration: none !important;
-    color: inherit !important;
-    display: block !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-`;
-
-    const style = document.createElement('style');
-    style.textContent = styleContent;
-    document.head.appendChild(style);
-
+<script>
+(function(){
     function fetchPosts() {
         $.ajax({
             url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina',
             dataType: 'json',
             success: function(categories) {
-                if(categories.length === 0) {
+                if (categories.length === 0) {
                     document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Kategorija nije pronađena.</p>';
                     return;
                 }
                 const id = categories[0].id;
                 $.ajax({
-                    url: `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${id}&per_page=1&_embed`,
+                    url: `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${id}&per_page=1&order=desc&orderby=date&_embed`,
                     dataType: 'json',
                     success: function(posts) {
-                        let html = '';
-                        posts.forEach(function(p) {
-                            const title = $('<textarea>').html(p.title.rendered).text();
-                            const link = p.link;
-                            const img = p._embedded && p._embedded["wp:featuredmedia"]
-                                ? p._embedded["wp:featuredmedia"][0].source_url
-                                : "https://via.placeholder.com/600x300?text=Bez+slike";
-                            const raw = p.excerpt.rendered.replace(/<[^>]*>?/gm, '');
-                            const excerpt = raw.length > 200 ? raw.substr(0,200) + '...' : raw;
+                        if (!posts.length) {
+                            document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Trenutno nema oglasa.</p>';
+                            return;
+                        }
 
-                            html += `
+                        const p = posts[0];
+                        const title = $('<textarea>').html(p.title.rendered).text();
+                        const link = p.link;
+                        const img = p._embedded && p._embedded["wp:featuredmedia"]
+                            ? p._embedded["wp:featuredmedia"][0].source_url
+                            : "https://via.placeholder.com/600x300?text=Bez+slike";
+                        const raw = p.excerpt.rendered.replace(/<[^>]*>?/gm, '');
+                        const excerpt = raw.length > 200 ? raw.substr(0, 200) + '...' : raw;
+
+                        const html = `
 <div class="prodaja-nekretnina-post">
   <a class="prodaja-nekretnina-link" href="${link}" target="_blank" rel="noopener">
     <div class="prodaja-nekretnina-post-image-container">
@@ -115,7 +116,6 @@ a.prodaja-nekretnina-link {
     <p class="prodaja-nekretnina-post-excerpt">${excerpt}</p>
   </a>
 </div>`;
-                        });
                         document.getElementById('prodaja-nekretnina-posts-container').innerHTML = html;
                     },
                     error: function() {
@@ -130,9 +130,13 @@ a.prodaja-nekretnina-link {
     }
 
     function waitForjQ(cb) {
-        if(window.jQuery) cb();
-        else setTimeout(()=>waitForjQ(cb),50);
+        if (window.jQuery) cb();
+        else setTimeout(() => waitForjQ(cb), 50);
     }
+
     waitForjQ(fetchPosts);
 })();
 </script>
+
+</body>
+</html>
