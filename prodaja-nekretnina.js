@@ -15,35 +15,28 @@
 #prodaja-nekretnina-frame {
     border: 3px solid black !important;
     padding: 20px !important;
-    box-sizing: border-box !important;
     max-width: 600px !important;
     width: 100% !important;
     margin: 0 auto !important;
     background-color: #fff !important;
+    box-sizing: border-box !important;
     overflow: hidden !important;
 }
 
-#prodaja-nekretnina-frame *,
 #prodaja-nekretnina-posts-container,
 .prodaja-nekretnina-post {
-    all: unset !important;
     box-sizing: border-box !important;
-}
-
-.prodaja-nekretnina-post {
     margin-bottom: 30px !important;
     width: 100% !important;
 }
 
 .prodaja-nekretnina-post-image-container {
-    width: 100% !important;
     max-width: 100% !important;
     max-height: 500px !important;
     overflow: hidden !important;
-    display: block !important;
     box-sizing: border-box !important;
-    padding: 0 !important;
-    margin: 0 auto !important;
+    margin: 0 auto 10px auto !important;
+    display: block !important;
 }
 
 .prodaja-nekretnina-post-image {
@@ -53,7 +46,6 @@
     width: auto !important;
     height: auto !important;
     margin: 0 auto !important;
-    box-sizing: border-box !important;
     object-fit: contain !important;
 }
 
@@ -75,8 +67,8 @@ a.prodaja-nekretnina-link {
     text-decoration: none !important;
     color: inherit !important;
     display: block !important;
-    box-sizing: border-box !important;
     width: 100% !important;
+    box-sizing: border-box !important;
 }
 `;
 
