@@ -30,12 +30,10 @@
 
 .prodaja-nekretnina-post-image {
     display: block !important;
-    max-width: 100% !important;
-    width: auto !important;
+    width: 100% !important;
     height: auto !important;
-    max-height: 200px !important;
     margin: 0 auto !important;
-    object-fit: contain !important;
+    object-fit: scale-down !important;
 }
 
 .prodaja-nekretnina-post-title {
