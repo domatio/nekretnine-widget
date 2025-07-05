@@ -23,14 +23,14 @@
     width: 100% !important;
     margin: 0 auto !important;
     background-color: #fff !important;
+    overflow: hidden !important;
 }
 
-/* Reset teme */
+/* Reset teme (bez slika!) */
 #prodaja-nekretnina-frame *,
 #prodaja-nekretnina-posts-container,
 .prodaja-nekretnina-post,
-.prodaja-nekretnina-post-image-container,
-.prodaja-nekretnina-post-image {
+.prodaja-nekretnina-post-image-container {
     all: unset !important;
     box-sizing: border-box !important;
 }
@@ -43,11 +43,15 @@
 /* Slika */
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
+    overflow: hidden !important;
+    display: block !important;
 }
 .prodaja-nekretnina-post-image {
     width: 100% !important;
+    max-width: 100% !important;
     height: auto !important;
     display: block !important;
+    box-sizing: border-box !important;
 }
 
 /* Naslov i tekst */
