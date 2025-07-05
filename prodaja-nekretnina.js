@@ -89,7 +89,7 @@ a.prodaja-nekretnina-link {
                 }
                 const id = categories[0].id;
                 $.ajax({
-                    url: `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${id}&per_page=1&order=desc&orderby=date&_embed&_=${Date.now()}`,
+                    url: `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${id}&per_page=5&order=desc&orderby=date&_embed&_=${Date.now()}`,
                     dataType: 'json',
                     success: function(posts) {
                         if (!posts.length) {
@@ -97,16 +97,17 @@ a.prodaja-nekretnina-link {
                             return;
                         }
 
-                        const p = posts[0]; // SAMO PRVI POST
-                        const title = $('<textarea>').html(p.title.rendered).text();
-                        const link = p.link;
-                        const img = p._embedded && p._embedded["wp:featuredmedia"]
-                            ? p._embedded["wp:featuredmedia"][0].source_url
-                            : "https://via.placeholder.com/600x300?text=Bez+slike";
-                        const raw = p.excerpt.rendered.replace(/<[^>]*>?/gm, '');
-                        const excerpt = raw.length > 200 ? raw.substr(0, 200) + '...' : raw;
+                        let html = '';
+                        posts.forEach(function(p) {
+                            const title = $('<textarea>').html(p.title.rendered).text();
+                            const link = p.link;
+                            const img = p._embedded && p._embedded["wp:featuredmedia"]
+                                ? p._embedded["wp:featuredmedia"][0].source_url
+                                : "https://via.placeholder.com/600x300?text=Bez+slike";
+                            const raw = p.excerpt.rendered.replace(/<[^>]*>?/gm, '');
+                            const excerpt = raw.length > 200 ? raw.substr(0, 200) + '...' : raw;
 
-                        const html = `
+                            html += `
 <div class="prodaja-nekretnina-post">
   <a class="prodaja-nekretnina-link" href="${link}" target="_blank" rel="noopener">
     <div class="prodaja-nekretnina-post-image-container">
@@ -116,6 +117,8 @@ a.prodaja-nekretnina-link {
     <p class="prodaja-nekretnina-post-excerpt">${excerpt}</p>
   </a>
 </div>`;
+                        });
+
                         document.getElementById('prodaja-nekretnina-posts-container').innerHTML = html;
                     },
                     error: function() {
