@@ -12,17 +12,12 @@
 `;
 
     function fetchPosts() {
-        if(!window.jQuery) {
-            setTimeout(fetchPosts, 50);
-            return;
-        }
-
         $.ajax({
             url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina&_=' + Date.now(),
             dataType: 'json',
             success: function(categories) {
                 if (categories.length === 0) {
-                    $('#prodaja-nekretnina-posts-container').html('<p>Kategorija nije pronađena.</p>');
+                    document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Kategorija nije pronađena.</p>';
                     return;
                 }
                 const id = categories[0].id;
@@ -31,7 +26,7 @@
                     dataType: 'json',
                     success: function(posts) {
                         if (!posts.length) {
-                            $('#prodaja-nekretnina-posts-container').html('<p>Trenutno nema oglasa.</p>');
+                            document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Trenutno nema oglasa.</p>';
                             return;
                         }
 
@@ -57,18 +52,23 @@
 </div>`;
                         });
 
-                        $('#prodaja-nekretnina-posts-container').html(html);
+                        document.getElementById('prodaja-nekretnina-posts-container').innerHTML = html;
                     },
                     error: function() {
-                        $('#prodaja-nekretnina-posts-container').html('<p>Greška pri učitavanju postova.</p>');
+                        document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Greška pri učitavanju postova.</p>';
                     }
                 });
             },
             error: function() {
-                $('#prodaja-nekretnina-posts-container').html('<p>Greška pri učitavanju kategorije.</p>');
+                document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Greška pri učitavanju kategorije.</p>';
             }
         });
     }
 
-    fetchPosts();
+    function waitForjQ(cb) {
+        if(window.jQuery) cb();
+        else setTimeout(()=>waitForjQ(cb),50);
+    }
+
+    waitForjQ(fetchPosts);
 })();
