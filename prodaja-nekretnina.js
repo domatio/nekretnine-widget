@@ -45,9 +45,9 @@
 .prodaja-nekretnina-post-image {
     display: block !important;
     max-width: 100% !important;
-    width: 100% !important;
+    width: auto !important;
     height: auto !important;
-    max-height: 500px !important;
+    max-height: 200px !important;
     margin: 0 auto !important;
     object-fit: contain !important;
 }
