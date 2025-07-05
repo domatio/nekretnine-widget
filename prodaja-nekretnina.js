@@ -21,16 +21,16 @@
     padding: 20px !important;
     box-sizing: border-box !important;
     width: 100% !important;
+    max-width: 600px; /* ili koliko želiš maksimalnu širinu */
     margin: 0 auto !important;
     background-color: #fff !important;
     overflow: hidden !important;
 }
 
-/* Reset teme (bez slika!) */
+/* Reset teme (bez slika) */
 #prodaja-nekretnina-frame *,
 #prodaja-nekretnina-posts-container,
-.prodaja-nekretnina-post,
-.prodaja-nekretnina-post-image-container {
+.prodaja-nekretnina-post {
     all: unset !important;
     box-sizing: border-box !important;
 }
@@ -38,6 +38,7 @@
 /* Post */
 .prodaja-nekretnina-post {
     margin-bottom: 30px !important;
+    width: 100% !important;
 }
 
 /* Slika */
@@ -45,13 +46,17 @@
     width: 100% !important;
     overflow: hidden !important;
     display: block !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 .prodaja-nekretnina-post-image {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
     display: block !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
     box-sizing: border-box !important;
+    margin: 0 auto !important;
 }
 
 /* Naslov i tekst */
@@ -60,10 +65,12 @@
     font-weight: bold !important;
     margin: 10px 0 5px !important;
     color: #111 !important;
+    word-wrap: break-word !important;
 }
 .prodaja-nekretnina-post-excerpt {
     font-size: 14px !important;
     color: #333 !important;
+    word-wrap: break-word !important;
 }
 
 /* Link */
@@ -71,6 +78,8 @@ a.prodaja-nekretnina-link {
     text-decoration: none !important;
     color: inherit !important;
     display: block !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
 }
 `;
 
