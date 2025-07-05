@@ -1,6 +1,6 @@
 (function(){
     const styleContent = `
-/* Ovaj CSS obara stilove Blogger teme i garantuje da slika ostaje unutar margina */
+/* Reset stilova */
 #prodaja-nekretnina-wrapper,
 #prodaja-nekretnina-posts-container,
 .prodaja-nekretnina-post,
@@ -8,17 +8,31 @@
 .prodaja-nekretnina-post-image {
     all: unset !important;
 }
+
+/* Glavni kontejner sa crnim okvirom */
 #prodaja-nekretnina-wrapper {
     display: block !important;
     box-sizing: border-box !important;
-    max-width: 600px !important;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 auto !important;
-    padding: 0 10px !important;
+    padding: 20px !important;
+    border: 3px solid black !important;
+    background-color: white !important;
 }
+
+/* Kontejner za postove */
+#prodaja-nekretnina-posts-container {
+    display: block !important;
+}
+
+/* Jedan post */
 .prodaja-nekretnina-post {
     display: block !important;
     margin-bottom: 40px !important;
 }
+
+/* Slika */
 .prodaja-nekretnina-post-image-container {
     display: block !important;
     width: 100% !important;
@@ -30,6 +44,8 @@
     height: auto !important;
     display: block !important;
 }
+
+/* Tekst i naslov */
 .prodaja-nekretnina-post-title,
 .prodaja-nekretnina-post-excerpt {
     display: block !important;
@@ -38,12 +54,15 @@
     font: inherit !important;
     text-align: left !important;
 }
+
+/* Link */
 a.prodaja-nekretnina-link {
     display: block !important;
     text-decoration: none !important;
     color: inherit !important;
 }
 `;
+
     const style = document.createElement('style');
     style.textContent = styleContent;
     document.head.appendChild(style);
