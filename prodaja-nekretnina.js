@@ -13,66 +13,64 @@
 
     const styleContent = `
 #prodaja-nekretnina-frame {
-    border: 3px solid black !important;
-    padding: 20px !important;
-    max-width: 600px !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    background-color: #fff !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
+    border: 3px solid black;
+    padding: 20px;
+    max-width: 100%;
+    width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
 }
 
-#prodaja-nekretnina-frame *,
 #prodaja-nekretnina-posts-container,
 .prodaja-nekretnina-post {
-    box-sizing: border-box !important;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .prodaja-nekretnina-post {
-    margin-bottom: 30px !important;
-    width: 100% !important;
+    margin-bottom: 30px;
 }
 
 .prodaja-nekretnina-post-image-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-    margin: 0 auto 10px auto !important;
-    display: block !important;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto 10px auto;
+    display: block;
+    box-sizing: border-box;
 }
 
 .prodaja-nekretnina-post-image {
-    display: block !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    height: auto !important;
-    max-height: 500px !important;
-    margin: 0 auto !important;
-    object-fit: contain !important;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+    border: none;
 }
 
 .prodaja-nekretnina-post-title {
-    font-size: 18px !important;
-    font-weight: bold !important;
-    margin: 10px 0 5px !important;
-    color: #111 !important;
-    word-wrap: break-word !important;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #111;
+    word-wrap: break-word;
 }
 
 .prodaja-nekretnina-post-excerpt {
-    font-size: 14px !important;
-    color: #333 !important;
-    word-wrap: break-word !important;
+    font-size: 14px;
+    color: #333;
+    word-wrap: break-word;
 }
 
 a.prodaja-nekretnina-link {
-    text-decoration: none !important;
-    color: inherit !important;
-    display: block !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
 }
 `;
 
