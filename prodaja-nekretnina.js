@@ -20,8 +20,8 @@
     border: 3px solid black !important;
     padding: 20px !important;
     box-sizing: border-box !important;
-    width: 100% !important;
-    max-width: 600px; /* ili koliko želiš maksimalnu širinu */
+    max-width: 600px !important; /* Maksimalna širina okvira */
+    width: 100% !important;       /* Širina prilagođena veličini ekrana */
     margin: 0 auto !important;
     background-color: #fff !important;
     overflow: hidden !important;
@@ -41,7 +41,7 @@
     width: 100% !important;
 }
 
-/* Slika */
+/* Slika - ograničena da nikada ne prelazi okvir ni širinu stranice */
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
     overflow: hidden !important;
@@ -49,7 +49,9 @@
     box-sizing: border-box !important;
     padding: 0 !important;
     margin: 0 !important;
+    max-width: 100% !important;
 }
+
 .prodaja-nekretnina-post-image {
     display: block !important;
     max-width: 100% !important;
@@ -57,6 +59,7 @@
     height: auto !important;
     box-sizing: border-box !important;
     margin: 0 auto !important;
+    object-fit: contain !important;
 }
 
 /* Naslov i tekst */
