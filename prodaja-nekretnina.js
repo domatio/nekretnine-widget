@@ -1,67 +1,145 @@
-(function () {
-    const containerId = 'prodaja-nekretnina-widget-container';
-
-    function createContainer() {
-        if (!document.getElementById(containerId)) {
-            const container = document.createElement('div');
-            container.id = containerId;
-            container.style.maxWidth = '100%';
-            container.style.margin = '0 auto';
-            document.body.appendChild(container);
-        }
+(function(){
+    if (!document.getElementById('prodaja-nekretnina-embed-wrapper')) {
+        const wrapper = document.createElement('div');
+        wrapper.id = 'prodaja-nekretnina-embed-wrapper';
+        document.body.appendChild(wrapper);
     }
+
+    document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
+<div id="prodaja-nekretnina-frame">
+  <div id="prodaja-nekretnina-posts-container"></div>
+</div>
+`;
+
+    const styleContent = `
+#prodaja-nekretnina-frame {
+    border: 3px solid black !important;
+    padding: 20px !important;
+    max-width: 600px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    background-color: #fff !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+#prodaja-nekretnina-frame *,
+#prodaja-nekretnina-posts-container,
+.prodaja-nekretnina-post {
+    box-sizing: border-box !important;
+}
+
+.prodaja-nekretnina-post {
+    margin-bottom: 30px !important;
+    width: 100% !important;
+}
+
+.prodaja-nekretnina-post-image-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    margin: 0 auto 10px auto !important;
+    display: block !important;
+    position: relative !important;
+    height: 200px !important;
+}
+
+.prodaja-nekretnina-post-image {
+    position: absolute !important;
+    top: 50% !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: translateY(-50%) !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    display: block !important;
+    margin: 0 auto !important;
+    border: none !important;
+}
+
+.prodaja-nekretnina-post-title {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    margin: 10px 0 5px !important;
+    color: #111 !important;
+    word-wrap: break-word !important;
+    text-align: center !important;
+}
+
+.prodaja-nekretnina-post-excerpt {
+    font-size: 14px !important;
+    color: #333 !important;
+    word-wrap: break-word !important;
+    text-align: center !important;
+}
+
+a.prodaja-nekretnina-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+`;
+
+    const style = document.createElement('style');
+    style.textContent = styleContent;
+    document.head.appendChild(style);
 
     function fetchPosts() {
         $.ajax({
             url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina',
             dataType: 'json',
-            success: function (categories) {
-                if (!categories.length) {
-                    document.getElementById(containerId).innerHTML = '<p>Kategorija nije pronađena.</p>';
+            success: function(categories) {
+                if(categories.length === 0) {
+                    document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Kategorija nije pronađena.</p>';
                     return;
                 }
-
-                const categoryId = categories[0].id;
-                const postsURL = `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${categoryId}&per_page=3&_embed`;
-
+                const id = categories[0].id;
                 $.ajax({
-                    url: postsURL,
+                    url: `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${id}&per_page=5&_embed`,
                     dataType: 'json',
-                    success: function (posts) {
+                    success: function(posts) {
                         let html = '';
-
-                        posts.forEach(function (post) {
-                            const title = $('<textarea>').html(post.title.rendered).text();
-                            const link = post.link;
-                            const image = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "https://via.placeholder.com/600x300?text=Bez+slike";
+                        posts.forEach(function(p) {
+                            const title = $('<textarea>').html(p.title.rendered).text();
+                            const link = p.link;
+                            const img = p._embedded && p._embedded["wp:featuredmedia"]
+                                ? p._embedded["wp:featuredmedia"][0].source_url
+                                : "https://via.placeholder.com/600x300?text=Bez+slike";
+                            const raw = p.excerpt.rendered.replace(/<[^>]*>?/gm, '');
+                            const excerpt = raw.length > 200 ? raw.substr(0,200) + '...' : raw;
 
                             html += `
-<a href="${link}" target="_blank" style="display: block; text-align: center; margin-bottom: 30px; text-decoration: none; color: inherit;">
-    <div style="position: relative; height: 200px; overflow: hidden; max-width: 100%;">
-        <img src="${image}" alt="${title}" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); width: 100%; height: auto; border: none;" />
+<div class="prodaja-nekretnina-post">
+  <a class="prodaja-nekretnina-link" href="${link}" target="_blank" rel="noopener">
+    <div class="prodaja-nekretnina-post-image-container">
+      <img class="prodaja-nekretnina-post-image" src="${img}" alt="${title}">
     </div>
-    <h3 style="margin-top: 10px; font-size: 18px;">${title}</h3>
-</a>`;
+    <h3 class="prodaja-nekretnina-post-title">${title}</h3>
+    <p class="prodaja-nekretnina-post-excerpt">${excerpt}</p>
+  </a>
+</div>`;
                         });
-
-                        document.getElementById(containerId).innerHTML = html;
+                        document.getElementById('prodaja-nekretnina-posts-container').innerHTML = html;
                     },
-                    error: function () {
-                        document.getElementById(containerId).innerHTML = '<p>Greška pri učitavanju postova.</p>';
+                    error: function() {
+                        document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Greška pri učitavanju postova.</p>';
                     }
                 });
             },
-            error: function () {
-                document.getElementById(containerId).innerHTML = '<p>Greška pri učitavanju kategorije.</p>';
+            error: function() {
+                document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Greška pri učitavanju kategorije.</p>';
             }
         });
     }
 
     function waitForjQ(cb) {
-        if (window.jQuery) cb();
-        else setTimeout(() => waitForjQ(cb), 50);
+        if(window.jQuery) cb();
+        else setTimeout(()=>waitForjQ(cb),50);
     }
-
-    createContainer();
     waitForjQ(fetchPosts);
 })();
