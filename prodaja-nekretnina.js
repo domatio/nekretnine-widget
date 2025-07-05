@@ -1,6 +1,15 @@
 (function(){
+    // Ako wrapper nije već na stranici, dodaj ga
+    if (!document.getElementById('prodaja-nekretnina-wrapper')) {
+        const wrapper = document.createElement('div');
+        wrapper.id = 'prodaja-nekretnina-wrapper';
+        wrapper.innerHTML = '<div id="prodaja-nekretnina-posts-container"></div>';
+        document.body.appendChild(wrapper);
+    }
+
+    // Stilovi sa crnim okvirom i responzivnim layoutom
     const styleContent = `
-/* Reset stilova */
+/* Reset */
 #prodaja-nekretnina-wrapper,
 #prodaja-nekretnina-posts-container,
 .prodaja-nekretnina-post,
@@ -14,7 +23,6 @@
     display: block !important;
     box-sizing: border-box !important;
     width: 100% !important;
-    max-width: 100% !important;
     margin: 0 auto !important;
     padding: 20px !important;
     border: 3px solid black !important;
@@ -53,6 +61,7 @@
     color: inherit !important;
     font: inherit !important;
     text-align: left !important;
+    margin: 10px 0 !important;
 }
 
 /* Link */
