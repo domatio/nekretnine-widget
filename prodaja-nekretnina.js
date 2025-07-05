@@ -1,15 +1,23 @@
 (function(){
-    if (!document.getElementById('prodaja-nekretnina-embed-wrapper')) {
-        const wrapper = document.createElement('div');
-        wrapper.id = 'prodaja-nekretnina-embed-wrapper';
-        document.body.appendChild(wrapper);
+    function injectCSS() {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://cdn.jsdelivr.net/gh/domatio/nekretnine-widget@latest/prodaja-nekretnina.css?v=' + Date.now();
+        document.head.appendChild(link);
     }
 
-    document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
+    function createWrapper() {
+        if (!document.getElementById('prodaja-nekretnina-embed-wrapper')) {
+            const wrapper = document.createElement('div');
+            wrapper.id = 'prodaja-nekretnina-embed-wrapper';
+            document.body.appendChild(wrapper);
+        }
+
+        document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
 <div id="prodaja-nekretnina-frame">
   <div id="prodaja-nekretnina-posts-container">Učitavanje oglasa...</div>
-</div>
-`;
+</div>`;
+    }
 
     function fetchPosts() {
         $.ajax({
@@ -66,9 +74,11 @@
     }
 
     function waitForjQ(cb) {
-        if(window.jQuery) cb();
-        else setTimeout(()=>waitForjQ(cb),50);
+        if (window.jQuery) cb();
+        else setTimeout(() => waitForjQ(cb), 50);
     }
 
+    injectCSS();
+    createWrapper();
     waitForjQ(fetchPosts);
 })();
