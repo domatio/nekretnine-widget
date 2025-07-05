@@ -5,11 +5,24 @@
         document.body.appendChild(wrapper);
     }
 
-    document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
-<div id="prodaja-nekretnina-frame" style="border:3px solid black; padding:20px; max-width:600px; width:100%; margin:0 auto; background:#fff; box-sizing:border-box; overflow:hidden;">
-  <div id="prodaja-nekretnina-posts-container" style="width:100%; box-sizing:border-box;"></div>
-</div>
-`;
+    const frame = document.createElement('div');
+    frame.id = 'prodaja-nekretnina-frame';
+    frame.style.cssText = `
+        border: 3px solid black;
+        padding: 20px;
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+        background: #fff;
+        box-sizing: border-box;
+        overflow: hidden;
+    `;
+
+    const container = document.createElement('div');
+    container.id = 'prodaja-nekretnina-posts-container';
+    container.style.cssText = 'width: 100%; box-sizing: border-box;';
+    frame.appendChild(container);
+    document.getElementById('prodaja-nekretnina-embed-wrapper').appendChild(frame);
 
     function fetchPosts() {
         $.ajax({
@@ -17,7 +30,7 @@
             dataType: 'json',
             success: function(categories) {
                 if(categories.length === 0) {
-                    document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Kategorija nije pronađena.</p>';
+                    container.innerHTML = '<p>Kategorija nije pronađena.</p>';
                     return;
                 }
                 const id = categories[0].id;
@@ -39,22 +52,22 @@
 <div style="margin-bottom:30px; width:100%; box-sizing:border-box;">
   <a href="${link}" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block; width:100%; box-sizing:border-box;">
     <div style="width:100%; overflow:hidden; margin:0 auto 10px auto; display:block; box-sizing:border-box;">
-      <img src="${img}" alt="${title}" style="display:block; width:100%; max-width:100%; height:auto; max-height:500px; object-fit:contain; margin:0 auto; border:none; box-sizing:border-box;">
+      <img src="${img}" alt="${title}" onload="this.style.width='100%'; this.style.maxWidth='100%'; this.style.height='auto'; this.style.maxHeight='500px'; this.style.objectFit='contain'; this.style.display='block'; this.style.margin='0 auto'; this.style.border='none'; this.style.boxSizing='border-box';">
     </div>
     <h3 style="font-size:18px; font-weight:bold; margin:10px 0 5px; color:#111; word-wrap:break-word;">${title}</h3>
     <p style="font-size:14px; color:#333; word-wrap:break-word;">${excerpt}</p>
   </a>
 </div>`;
                         });
-                        document.getElementById('prodaja-nekretnina-posts-container').innerHTML = html;
+                        container.innerHTML = html;
                     },
                     error: function() {
-                        document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Greška pri učitavanju postova.</p>';
+                        container.innerHTML = '<p>Greška pri učitavanju postova.</p>';
                     }
                 });
             },
             error: function() {
-                document.getElementById('prodaja-nekretnina-posts-container').innerHTML = '<p>Greška pri učitavanju kategorije.</p>';
+                container.innerHTML = '<p>Greška pri učitavanju kategorije.</p>';
             }
         });
     }
