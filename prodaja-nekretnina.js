@@ -1,4 +1,4 @@
-(function(){
+(function () {
     const wrapper = document.getElementById('prodaja-nekretnina-embed-wrapper');
     if (!wrapper) return;
 
@@ -11,6 +11,7 @@
     iframe.style.background = '#fff';
     iframe.setAttribute('scrolling', 'no');
     iframe.setAttribute('loading', 'lazy');
+    iframe.setAttribute('frameborder', '0');
     wrapper.appendChild(iframe);
 
     const doc = iframe.contentDocument || iframe.contentWindow.document;
@@ -21,11 +22,14 @@
 <head>
   <meta charset="UTF-8">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       padding: 20px;
       font-family: sans-serif;
-      box-sizing: border-box;
+      background: #fff;
     }
     .post {
       margin-bottom: 30px;
@@ -38,6 +42,7 @@
       object-fit: contain;
       display: block;
       margin: 0 auto;
+      border: none;
     }
     .title {
       font-size: 18px;
@@ -55,12 +60,17 @@
   <div id="posts">Učitavanje...</div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
+    function resizeParent() {
+      window.parent.postMessage({ height: document.body.scrollHeight }, '*');
+    }
+
     $.ajax({
       url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina',
       dataType: 'json',
       success: function(categories) {
         if(categories.length === 0) {
           document.getElementById('posts').innerHTML = '<p>Kategorija nije pronađena.</p>';
+          resizeParent();
           return;
         }
         const id = categories[0].id;
@@ -88,19 +98,31 @@
 </div>\`;
             });
             document.getElementById('posts').innerHTML = html;
+            resizeParent();
           },
           error: function() {
             document.getElementById('posts').innerHTML = '<p>Greška pri učitavanju postova.</p>';
+            resizeParent();
           }
         });
       },
       error: function() {
         document.getElementById('posts').innerHTML = '<p>Greška pri učitavanju kategorije.</p>';
+        resizeParent();
       }
     });
+
+    window.onload = resizeParent;
   </script>
 </body>
 </html>
     `);
     doc.close();
+
+    // Primi visinu iz iframe-a i primeni
+    window.addEventListener('message', function (e) {
+        if (e.data && e.data.height) {
+            iframe.style.height = e.data.height + 'px';
+        }
+    });
 })();
