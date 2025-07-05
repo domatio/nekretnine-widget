@@ -1,12 +1,14 @@
 (function () {
     const containerId = 'prodaja-nekretnina-widget-container';
 
-    if (!document.getElementById(containerId)) {
-        const container = document.createElement('div');
-        container.id = containerId;
-        container.style.maxWidth = '100%';
-        container.style.margin = '0 auto';
-        document.body.appendChild(container);
+    function createContainer() {
+        if (!document.getElementById(containerId)) {
+            const container = document.createElement('div');
+            container.id = containerId;
+            container.style.maxWidth = '100%';
+            container.style.margin = '0 auto';
+            document.body.appendChild(container);
+        }
     }
 
     function fetchPosts() {
@@ -46,5 +48,6 @@
         else setTimeout(() => waitForjQ(cb), 50);
     }
 
+    createContainer();
     waitForjQ(fetchPosts);
 })();
