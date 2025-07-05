@@ -1,80 +1,50 @@
-(function(){
-    if (!document.getElementById('prodaja-nekretnina-embed-wrapper')) {
-        const wrapper = document.createElement('div');
-        wrapper.id = 'prodaja-nekretnina-embed-wrapper';
-        document.body.appendChild(wrapper);
+(function () {
+    const containerId = 'prodaja-nekretnina-widget-container';
+
+    if (!document.getElementById(containerId)) {
+        const container = document.createElement('div');
+        container.id = containerId;
+        container.style.maxWidth = '100%';
+        container.style.margin = '0 auto';
+        document.body.appendChild(container);
     }
 
-    const frame = document.createElement('div');
-    frame.id = 'prodaja-nekretnina-frame';
-    frame.style.cssText = `
-        border: 3px solid black;
-        padding: 20px;
-        max-width: 600px;
-        width: 100%;
-        margin: 0 auto;
-        background: #fff;
-        box-sizing: border-box;
-        overflow: hidden;
-    `;
-
-    const container = document.createElement('div');
-    container.id = 'prodaja-nekretnina-posts-container';
-    container.style.cssText = 'width: 100%; box-sizing: border-box;';
-    frame.appendChild(container);
-    document.getElementById('prodaja-nekretnina-embed-wrapper').appendChild(frame);
-
     function fetchPosts() {
-        $.ajax({
-            url: 'https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina',
-            dataType: 'json',
-            success: function(categories) {
-                if(categories.length === 0) {
-                    container.innerHTML = '<p>Kategorija nije pronađena.</p>';
-                    return;
-                }
-                const id = categories[0].id;
-                $.ajax({
-                    url: `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${id}&per_page=5&_embed`,
-                    dataType: 'json',
-                    success: function(posts) {
-                        let html = '';
-                        posts.forEach(function(p) {
-                            const title = $('<textarea>').html(p.title.rendered).text();
-                            const link = p.link;
-                            const img = p._embedded && p._embedded["wp:featuredmedia"]
-                                ? p._embedded["wp:featuredmedia"][0].source_url
-                                : "https://via.placeholder.com/600x300?text=Bez+slike";
-                            const raw = p.excerpt.rendered.replace(/<[^>]*>?/gm, '');
-                            const excerpt = raw.length > 200 ? raw.substr(0,200) + '...' : raw;
-
-                            html += `
-<div style="margin-bottom:30px; width:100%; box-sizing:border-box;">
-  <a href="${link}" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block; width:100%; box-sizing:border-box;">
-    <div style="width:100%; overflow:hidden; margin:0 auto 10px auto; display:block; box-sizing:border-box;">
-      <img src="${img}" alt="${title}" onload="this.style.width='100%'; this.style.maxWidth='100%'; this.style.height='auto'; this.style.maxHeight='500px'; this.style.objectFit='contain'; this.style.display='block'; this.style.margin='0 auto'; this.style.border='none'; this.style.boxSizing='border-box';">
-    </div>
-    <h3 style="font-size:18px; font-weight:bold; margin:10px 0 5px; color:#111; word-wrap:break-word;">${title}</h3>
-    <p style="font-size:14px; color:#333; word-wrap:break-word;">${excerpt}</p>
-  </a>
-</div>`;
-                        });
-                        container.innerHTML = html;
-                    },
-                    error: function() {
-                        container.innerHTML = '<p>Greška pri učitavanju postova.</p>';
-                    }
-                });
-            },
-            error: function() {
-                container.innerHTML = '<p>Greška pri učitavanju kategorije.</p>';
+        $.getJSON('https://besplatnioglas.rs/wp-json/wp/v2/categories?slug=prodaja-nekretnina', function (categories) {
+            if (!categories.length) {
+                document.getElementById(containerId).innerHTML = '<p>Kategorija nije pronađena.</p>';
+                return;
             }
+
+            const categoryId = categories[0].id;
+            const postsURL = `https://besplatnioglas.rs/wp-json/wp/v2/posts?categories=${categoryId}&per_page=3&_embed`;
+
+            $.getJSON(postsURL, function (posts) {
+                let html = '';
+
+                posts.forEach(function (post) {
+                    const title = $('<textarea>').html(post.title.rendered).text();
+                    const link = post.link;
+                    const image = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "https://via.placeholder.com/600x300?text=Bez+slike";
+
+                    html += `
+<a href="${link}" target="_blank" style="display: block; text-align: center; margin-bottom: 30px; text-decoration: none; color: inherit;">
+    <div style="position: relative; height: 200px; overflow: hidden; max-width: 100%;">
+        <img src="${image}" alt="${title}" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); width: 100%; height: auto; border: none;" />
+    </div>
+    <h3 style="margin-top: 10px; font-size: 18px;">${title}</h3>
+</a>`;
+                });
+
+                document.getElementById(containerId).innerHTML = html;
+            });
         });
     }
 
     function waitForjQ(cb) {
-        if(window.jQuery) cb();
-        else setTimeout(()=>waitForjQ(cb),50);
+        if (window.jQuery) cb();
+        else setTimeout(() => waitForjQ(cb), 50);
     }
+
     waitForjQ(fetchPosts);
 })();
