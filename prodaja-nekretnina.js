@@ -6,88 +6,10 @@
     }
 
     document.getElementById('prodaja-nekretnina-embed-wrapper').innerHTML = `
-<div id="prodaja-nekretnina-frame">
-  <div id="prodaja-nekretnina-posts-container"></div>
+<div id="prodaja-nekretnina-frame" style="border: 3px solid black; padding: 20px; max-width: 600px; width: 100%; margin: 0 auto; background-color: #fff; box-sizing: border-box;">
+  <div id="prodaja-nekretnina-posts-container" style="width: 100%; box-sizing: border-box;"></div>
 </div>
 `;
-
-    const styleContent = `
-#prodaja-nekretnina-frame {
-    border: 3px solid black !important;
-    padding: 20px !important;
-    max-width: 600px !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    background-color: #fff !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-}
-
-#prodaja-nekretnina-frame *,
-#prodaja-nekretnina-posts-container,
-.prodaja-nekretnina-post {
-    box-sizing: border-box !important;
-}
-
-.prodaja-nekretnina-post {
-    margin-bottom: 30px !important;
-    width: 100% !important;
-}
-
-.prodaja-nekretnina-post-image-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-    margin: 0 auto 10px auto !important;
-    display: block !important;
-    position: relative !important;
-    height: 200px !important;
-}
-
-.prodaja-nekretnina-post-image {
-    position: absolute !important;
-    top: 50% !important;
-    left: 0 !important;
-    right: 0 !important;
-    transform: translateY(-50%) !important;
-    width: 100% !important;
-    height: auto !important;
-    max-height: none !important;
-    object-fit: cover !important;
-    display: block !important;
-    margin: 0 auto !important;
-    border: none !important;
-}
-
-.prodaja-nekretnina-post-title {
-    font-size: 18px !important;
-    font-weight: bold !important;
-    margin: 10px 0 5px !important;
-    color: #111 !important;
-    word-wrap: break-word !important;
-    text-align: center !important;
-}
-
-.prodaja-nekretnina-post-excerpt {
-    font-size: 14px !important;
-    color: #333 !important;
-    word-wrap: break-word !important;
-    text-align: center !important;
-}
-
-a.prodaja-nekretnina-link {
-    text-decoration: none !important;
-    color: inherit !important;
-    display: block !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-`;
-
-    const style = document.createElement('style');
-    style.textContent = styleContent;
-    document.head.appendChild(style);
 
     function fetchPosts() {
         $.ajax({
@@ -114,15 +36,13 @@ a.prodaja-nekretnina-link {
                             const excerpt = raw.length > 200 ? raw.substr(0,200) + '...' : raw;
 
                             html += `
-<div class="prodaja-nekretnina-post">
-  <a class="prodaja-nekretnina-link" href="${link}" target="_blank" rel="noopener">
-    <div class="prodaja-nekretnina-post-image-container">
-      <img class="prodaja-nekretnina-post-image" src="${img}" alt="${title}">
-    </div>
-    <h3 class="prodaja-nekretnina-post-title">${title}</h3>
-    <p class="prodaja-nekretnina-post-excerpt">${excerpt}</p>
-  </a>
-</div>`;
+<a href="${link}" target="_blank" rel="noopener" style="display: block; text-align: center; margin-bottom: 30px; text-decoration: none; color: inherit;">
+  <div style="position: relative; height: 200px; overflow: hidden; max-width: 100%;">
+    <img src="${img}" alt="${title}" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); width: 100%; height: auto; border: none;" />
+  </div>
+  <h3 style="margin-top: 10px; font-size: 18px;">${title}</h3>
+  <p style="font-size: 14px; color: #333;">${excerpt}</p>
+</a>`;
                         });
                         document.getElementById('prodaja-nekretnina-posts-container').innerHTML = html;
                     },
