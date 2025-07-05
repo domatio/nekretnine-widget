@@ -21,18 +21,19 @@
 
 .prodaja-nekretnina-post-image-container {
     width: 100% !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     margin: 0 auto 10px auto !important;
+    display: block !important;
     text-align: center !important;
 }
 
 .prodaja-nekretnina-post-image {
     display: block !important;
-    height: 200px !important;       /* OVDE JE VISINA 200px */
-    width: auto !important;          /* proporcionalna širina */
-    max-width: none !important;      /* bez ograničenja */
+    height: 200px !important;
+    width: auto !important;
+    max-width: 100% !important;
     margin: 0 auto !important;
-    object-fit: contain !important;  /* cela slika vidi se */
+    object-fit: contain !important;
 }
 
 .prodaja-nekretnina-post-title {
