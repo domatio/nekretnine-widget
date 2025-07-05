@@ -42,8 +42,8 @@
 
                             html += `
 <a href="${link}" target="_blank" rel="noopener" style="display: block; text-align: center; margin-bottom: 30px; text-decoration: none; color: inherit;">
-  <div style="width: 100%; overflow: hidden; max-width: 100%; margin: 0 auto;">
-    <img src="${image}" alt="${title}" style="display: block; width: 100%; height: auto; max-height: 200px; object-fit: contain; margin: 0 auto; border: none;" />
+  <div style="position: relative; height: 200px; overflow: hidden; max-width: 100%;">
+    <img src="${image}" alt="${title}" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 100%; height: auto; max-height: 200px; object-fit: contain; border: none; display: block;" />
   </div>
   <h3 style="margin-top: 10px; font-size: 18px;">${title}</h3>
   <p style="font-size: 14px; color: #333;">${excerpt}</p>
